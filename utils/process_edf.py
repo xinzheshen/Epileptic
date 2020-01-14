@@ -9,7 +9,8 @@ import matplotlib.pyplot as plt
 
 
 base_path = r"D:\personal\dataset\epilepsy"
-IDs = ['01', '03', '07', '09', '10', '20', '21', '23']
+IDs = ['01', '03', '07', '09', '10', '20', '21', '22']
+IDs = ['22']
 chb = "chb"
 MD5SUMS = "MD5SUMS"
 summary_txt = "-summary.txt"
@@ -95,8 +96,8 @@ def get_edf_date(id, file_name):
     m = f.startdate_month
     d = f.startdate_day
 
+    signal_datas = f.readSignal(0)
     return str(y) + "-" + str(m) + "-" + str(d)
-    # signal_datas = f.readSignal(0)
     # signal_datas_torch = torch.from_numpy(signal_datas)
     # torch.save(signal_datas_torch, 'chb01_01.pt')
     # signal_datas_torch2 = torch.load("chb01_01.pt")

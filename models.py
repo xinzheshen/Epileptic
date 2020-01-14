@@ -23,12 +23,14 @@ class DCNN(nn.Module):
             self.convolutions.append(conv_layer)
 
     def forward(self, x):
+        # x ： (B, 1, 1280, 23)
         for i in range(self.n_conv):
             x = F.relu(self.convolutions[i](x))
             if i < self.n_conv - 1:
                 x = self.pool(x)
 
         # print("size after DCNN: ", x.size())
+        # size after DCNN:  torch.Size([B, 32, 158, 1])
         return x
 
 
@@ -52,5 +54,6 @@ class SeizurePredict(nn.Module):
         output, _ = self.lstm(x)
         output = output.permute(0, 2, 1)
         # print("size after BiLSTM: ", output.size())
+        # size after BiLSTM:  torch.Size([B, 20, 158])
         # should calculate mean value of last time_step result?
         return torch.sigmoid(torch.mean(output[:, :, -1], 1))
